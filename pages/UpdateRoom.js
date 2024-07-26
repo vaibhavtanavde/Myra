@@ -29,7 +29,7 @@ exports.UpdateRoom = class UpdateRoom {
 
     }
 
-    async validate_room() {
+    async validate_updateroom() {
         await expect(this.page.locator('p[id^="roomName"]')).toContainText('107')
     }
 }

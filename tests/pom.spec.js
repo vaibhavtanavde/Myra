@@ -1,8 +1,8 @@
 const { test, expect } = require('@playwright/test')
 import { CreateRoom } from '../pages/createRoom'
+import { DeleteRoom } from '../pages/DeleteRoom'
 import { LoginPage } from '../pages/LoginPage'
 import { UpdateRoom } from '../pages/UpdateRoom'
-
 
 test.beforeEach('Login Test', async ({ page }) => {
 
@@ -26,6 +26,15 @@ test('Update a Room and Validate it', async ({ page }) => {
   const update = new UpdateRoom(page)
   await update.updateroom()
   await page.waitForTimeout(3000)
-  await update.validate_room()
+  await update.validate_updateroom()
+  await page.waitForTimeout(3000)
+})
+
+test('Delete a Room and Validate it', async ({ page }) => {
+
+  const del = new DeleteRoom(page)
+  await del.deleteroom()
+  await page.waitForTimeout(3000)
+  await del.validate_deleteroom()
   await page.waitForTimeout(3000)
 })
