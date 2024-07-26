@@ -16,17 +16,17 @@ exports.CreateRoom = class CreateRoom {
 
     async createroom() {
         await this.roomNo.fill('106')
-        await this.roomType.selectOption({ label: 'Family'})
-        await this.accessible.selectOption({ label: 'true'})
+        await this.roomType.selectOption({ label: 'Family' })
+        await this.accessible.selectOption({ label: 'true' })
         await this.roomPrice.fill('700')
         await this.wifi.click()
         await this.tv.click()
         await this.safe.click()
         await this.create_button.click()
-        
+
     }
 
-    async validate_room(){
+    async validate_room() {
         await expect(this.page.locator('p[id^="roomName"]')).toContainText('106')
     }
 }
