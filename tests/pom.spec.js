@@ -3,6 +3,7 @@ import { CreateRoom } from '../pages/createRoom'
 import { DeleteRoom } from '../pages/DeleteRoom'
 import { LoginPage } from '../pages/LoginPage'
 import { UpdateRoom } from '../pages/UpdateRoom'
+import { ViewRoomList } from '../pages/ViewRoomList'
 
 test.beforeEach('Login Test', async ({ page }) => {
 
@@ -27,6 +28,14 @@ test('Update a Room and Validate it', async ({ page }) => {
   await update.updateroom()
   await page.waitForTimeout(3000)
   await update.validate_updateroom()
+  await page.waitForTimeout(3000)
+})
+
+test('Room List Validation', async ({ page }) => {
+
+  const roomlist = new ViewRoomList(page)
+  await page.waitForTimeout(3000)
+  await roomlist.validate_roomlist()
   await page.waitForTimeout(3000)
 })
 

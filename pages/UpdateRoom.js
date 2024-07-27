@@ -43,10 +43,10 @@ exports.UpdateRoom = class UpdateRoom {
         for (const element of roomNameElements) {
             const textContent = await element.textContent();
             if (textContent.includes('107')) {
-              console.log('Found room with name 107');
+                console.log('Found room with name 107');
             } else {
-              console.log('Room name does not contain 107');
+                console.log('Room name does not contain 107');
             }
-          } 
+        }
     }
 }
