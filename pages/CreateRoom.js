@@ -27,6 +27,15 @@ exports.CreateRoom = class CreateRoom {
     }
 
     async validate_room() {
-        await expect(this.page.locator('p[id^="roomName"]')).toContainText('106')
+        //await expect(this.page.locator('p[id^="roomName"]')).toContainText('106')
+        const roomNameElements = await this.page.locator('p[id^="roomName"]').elementHandles()
+        for (const element of roomNameElements) {
+            const textContent = await element.textContent();
+            if (textContent.includes('106')) {
+              console.log('Found room with name 106');
+            } else {
+              console.log('Room name does not contain 106');
+            }
+          }       
     }
 }

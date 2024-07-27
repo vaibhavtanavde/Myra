@@ -4,16 +4,37 @@ exports.DeleteRoom = class DeleteRoom {
 
     constructor(page) {
         this.page = page
-        this.deleteRoom = page.locator("//span[@class='fa fa-remove roomDelete']")
+        this.roomListings = page.locator("//div[@data-testid='roomlisting']")
 
     }
 
     async deleteroom() {
-        await this.deleteRoom.click()
+        const roomListingCount = await this.roomListings.count();
 
+        for (let i = 0; i < roomListingCount; i++) {
+            const roomNameLocator = this.roomListings.nth(i).locator('p[id^="roomName"]');
+            const roomNameText = await roomNameLocator.textContent();
+
+            if (roomNameText.includes('107')) {
+                const deleteButton = this.roomListings.nth(i).locator('span.fa.fa-remove.roomDelete');
+                await deleteButton.click();
+                break;
+            }
+        }
     }
 
     async validate_deleteroom() {
-        await expect(this.page.locator('p[id^="roomName"]')).toHaveCount(0)
+        const roomListingCount = await this.roomListings.count();
+        let found = false;
+        for (let i = 0; i < roomListingCount; i++) {
+            const roomNameLocator = this.roomListings.nth(i).locator('p[id^="roomName"]');
+            const roomNameText = await roomNameLocator.textContent();
+
+            if (roomNameText.includes('107')) {
+                found = true;
+                break;
+            }
+        }
+        expect(found).toBeFalsy();
     }
 }

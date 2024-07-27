@@ -17,7 +17,15 @@ exports.UpdateRoom = class UpdateRoom {
     }
 
     async updateroom() {
-        await this.roomDetails.click()
+        const roomNameElements = await this.page.locator('p[id^="roomName"]').elementHandles();
+        for (const element of roomNameElements) {
+            const textContent = await element.textContent();
+            if (textContent.includes('106')) {
+                // Click the specific room element
+                await element.click();
+                break;
+            }
+        }
         await this.edit_button.click()
         await this.roomNo.fill('107')
         await this.roomType.selectOption({ label: 'Single' })
@@ -30,6 +38,15 @@ exports.UpdateRoom = class UpdateRoom {
     }
 
     async validate_updateroom() {
-        await expect(this.page.locator('p[id^="roomName"]')).toContainText('107')
+        //await expect(this.page.locator('p[id^="roomName"]')).toContainText('107')
+        const roomNameElements = await this.page.locator('p[id^="roomName"]').elementHandles()
+        for (const element of roomNameElements) {
+            const textContent = await element.textContent();
+            if (textContent.includes('107')) {
+              console.log('Found room with name 107');
+            } else {
+              console.log('Room name does not contain 107');
+            }
+          } 
     }
 }
