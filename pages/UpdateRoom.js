@@ -15,6 +15,7 @@ exports.UpdateRoom = class UpdateRoom {
         this.description = page.locator("//textarea[@id='description']")
         this.update_button = page.locator(`//button[contains(text(), '${this.selectors.updateButton}')]`)
         this.rooms_button = page.locator(`//a[contains(text(), '${this.selectors.roomsButton}')]`)
+        this.error_message = page.locator("//div[@class='alert alert-danger']") //Negative Test
 
     }
 
@@ -23,12 +24,16 @@ exports.UpdateRoom = class UpdateRoom {
         for (const element of roomNameElements) {
             const textContent = await element.textContent();
             if (textContent.includes('106')) {
-                // Click the specific room element
                 await element.click();
                 break;
             }
         }
         await this.edit_button.click()
+        await this.roomNo.clear() //Negative Test
+        await this.roomPrice.clear() //Negative Test
+        await this.update_button.click() //Negative Test
+        const errortext = await this.error_message.textContent() //Negative Test
+        console.log("Error Message is:" + errortext)
         await this.roomNo.fill('107')
         await this.roomType.selectOption({ label: 'Single' })
         await this.roomPrice.fill('800')
@@ -45,6 +50,7 @@ exports.UpdateRoom = class UpdateRoom {
             const textContent = await element.textContent();
             if (textContent.includes('107')) {
                 console.log('Found room with name 107');
+                break;
             } else {
                 console.log('Room name does not contain 107');
             }

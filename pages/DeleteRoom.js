@@ -19,6 +19,7 @@ exports.DeleteRoom = class DeleteRoom {
             if (roomNameText.includes('107')) {
                 const deleteButton = this.roomListings.nth(i).locator('span.fa.fa-remove.roomDelete');
                 await deleteButton.click();
+                console.log("Room Deleted suucessfully")
                 break;
             }
         }
@@ -37,5 +38,6 @@ exports.DeleteRoom = class DeleteRoom {
             }
         }
         expect(found).toBeFalsy();
+        console.log("Deleted Room not found in List")
     }
 }
