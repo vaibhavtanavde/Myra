@@ -1,9 +1,11 @@
+//CreateRoom.js
 const { expect } = require("@playwright/test")
 
 exports.CreateRoom = class CreateRoom {
 
-  constructor(page) {
+  constructor(page, selectors) {
     this.page = page
+    this.selectors = selectors
     this.roomNo = page.locator("//input[@id='roomName']")
     this.roomType = page.locator("//select[@id='type']")
     this.accessible = page.locator("//select[@id='accessible']")
@@ -11,7 +13,7 @@ exports.CreateRoom = class CreateRoom {
     this.wifi = page.locator("//input[@id='wifiCheckbox']")
     this.tv = page.locator("//input[@id='tvCheckbox']")
     this.safe = page.locator("//input[@id='safeCheckbox']")
-    this.create_button = page.locator("//button[@id='createRoom']")
+    this.create_button = page.locator(`//button[contains(text(), '${this.selectors.createButton}')]`)
     this.error_message = page.locator("//div[@class='alert alert-danger']") //Negative Test
 
   }

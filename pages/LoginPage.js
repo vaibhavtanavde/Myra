@@ -1,10 +1,12 @@
+//LoginPage.js
 exports.LoginPage = class LoginPage {
 
-    constructor(page) {
+    constructor(page, selectors) {
         this.page = page
-        this.username_button = page.locator("//input[@id='username']")
-        this.password_button = page.locator("//input[@id='password']")
-        this.login_button = page.locator("//button[@id='doLogin']")
+        this.selectors = selectors
+        this.username_button = page.locator(`//input[@placeholder='${this.selectors.username}']`)
+        this.password_button = page.locator(`//input[@placeholder='${this.selectors.password}']`)
+        this.login_button = page.locator(`//button[contains(text(), '${this.selectors.login}')]`)
     }
 
     async goto() {

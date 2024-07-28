@@ -1,18 +1,20 @@
+////UpdateRoom.js
 const { expect } = require("@playwright/test")
 
 exports.UpdateRoom = class UpdateRoom {
 
-    constructor(page) {
+    constructor(page, selectors) {
         this.page = page
+        this.selectors = selectors
         this.roomDetails = page.locator('p[id^="roomName"]')
-        this.edit_button = page.locator("//button[@class='btn btn-outline-primary float-right']")
+        this.edit_button = page.locator(`//button[contains(text(), '${this.selectors.editButton}')]`)
         this.roomNo = page.locator("//input[@id='roomName']")
         this.roomType = page.locator("//select[@id='type']")
         this.roomPrice = page.locator("//input[@id='roomPrice']")
         this.refreshments = page.locator("//input[@id='refreshCheckbox']")
         this.description = page.locator("//textarea[@id='description']")
-        this.update_button = page.locator("//button[@id='update']")
-        this.rooms_button = page.locator('a.nav-link', { hasText: 'Rooms' })
+        this.update_button = page.locator(`//button[contains(text(), '${this.selectors.updateButton}')]`)
+        this.rooms_button = page.locator(`//a[contains(text(), '${this.selectors.roomsButton}')]`)
 
     }
 
@@ -38,7 +40,6 @@ exports.UpdateRoom = class UpdateRoom {
     }
 
     async validate_updateroom() {
-        //await expect(this.page.locator('p[id^="roomName"]')).toContainText('107')
         const roomNameElements = await this.page.locator('p[id^="roomName"]').elementHandles()
         for (const element of roomNameElements) {
             const textContent = await element.textContent();
